@@ -58,8 +58,6 @@ def test_freefall_with_initial_velocity():
 
 def test_with_initial_upward_velocity_but_no_acceleration():
 
-    # TODO verify
-
     # time
     t = numpy.asarray([0, 1])
 
@@ -77,8 +75,6 @@ def test_with_initial_upward_velocity_but_no_acceleration():
 
 def test_with_initial_downward_velocity_but_no_acceleration():
 
-    # TODO verify
-
     # time
     t = numpy.asarray([0, 1])
 
@@ -95,8 +91,6 @@ def test_with_initial_downward_velocity_but_no_acceleration():
 
 
 def test_with_initial_downward_velocity_but_no_acceleration_more_steps():
-
-    # TODO verify
 
     # time
     t = numpy.asarray([0, 1, 2])

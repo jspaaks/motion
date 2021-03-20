@@ -35,7 +35,6 @@ def motion_6d(t: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, z: numpy.nda
     unit_vector = [0, 0, 1]
     orientation_x, orientation_y, orientation_z = Rotation.from_rotvec(rotation_vectors).apply(unit_vector).T
 
-    # TODO check g-force just subtract gravitational acceleration in z?
     acceleration_x = translational_motion_1d(t, position=x, v0=vx0)
     acceleration_y = translational_motion_1d(t, position=y, v0=vy0)
     acceleration_z = translational_motion_1d(t, position=z, v0=vz0)
