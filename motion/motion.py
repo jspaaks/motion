@@ -31,16 +31,17 @@ def motion_6d(t: numpy.ndarray, x: numpy.ndarray, y: numpy.ndarray, z: numpy.nda
     if rz is None:
         rz = numpy.zeros_like(t)
 
-    rotation_vectors = numpy.stack((rx, ry, rz), axis=0).T
-    unit_vector = [0, 0, 1]
-    orientation_x, orientation_y, orientation_z = Rotation.from_rotvec(rotation_vectors).apply(unit_vector).T
+    rotation_vectors = numpy.stack((rx, ry, rz), axis=0).transpose()
 
     acceleration_x = translational_motion_1d(t, position=x, v0=vx0)
     acceleration_y = translational_motion_1d(t, position=y, v0=vy0)
     acceleration_z = translational_motion_1d(t, position=z, v0=vz0)
 
-    gx = acceleration_x / g
-    gy = acceleration_y / g
-    gz = (acceleration_z - g) / g
+    acceleration = numpy.stack((acceleration_x / g, acceleration_y / g, (acceleration_z - g) / g), axis=0).transpose()
 
-    return numpy.stack((orientation_x, orientation_y, orientation_z, gx, gy, gz), axis=0)
+    gx, gy, gz = Rotation.from_rotvec(rotation_vectors) \
+                         .inv() \
+                         .apply(acceleration) \
+                         .transpose()
+
+    return numpy.stack((gx, gy, gz), axis=0)
